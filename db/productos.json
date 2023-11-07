@@ -1,0 +1,17 @@
+[
+    {
+      "id": 1,
+      "nombre": "Fideos",
+      "categoria": "Limpieza"
+    },
+    {
+      "id": 2,
+      "nombre": "Gaseosa",
+      "categoria": "Bebidas"
+    },
+    {
+      "id": 3,
+      "nombre": "Tomate",
+      "categoria": "Verduleria"
+    }
+  ]

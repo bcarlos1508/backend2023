@@ -144,20 +144,13 @@ class ProductManager
         }
     }
 
-    async getProductById(idProduct, limit) 
+    async getProductById(idProduct) 
     {
         try 
         {
-            const product = await this.#existingProduct(idProduct, limit);
-            if (!product) 
-            {
-                console.log('No encontrado');
-            } 
-            else 
-            {
-                return product;
-            }
-        }
+            const productsFile = await this.getProducts();
+            return productsFile.find((products) => products.id === idProduct);
+        } 
         catch (error) 
         {
             console.log(error);

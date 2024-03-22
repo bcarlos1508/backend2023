@@ -26,7 +26,7 @@ chatBox.addEventListener('keyup',evt=>{
 
 /*Socket listeners */
 socket.on ('messageLogs', data=>{
-    let.log = document.getElementById('messaggeLogs');
+    let.log = document.getElementById('messageLogs');
     let messages = "";
     data.forEach(message => {
         messages = messages+`${message.user} dice: ${message.message}</br>`

@@ -16,5 +16,8 @@
     "handlebars": "^4.7.7",
     "multer": "^1.4.5-lts.1",
     "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }

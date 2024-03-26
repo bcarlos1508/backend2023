@@ -8,6 +8,8 @@ import { Server } from 'socket.io';
 import  productManager  from "./manager/ProductManager.js";
 import { webRouter } from './routes/web.router.js';
 import {engine} from 'express-handlebars';
+import mongoose from 'mongoose';
+import userRouter from '../src/routes/users.router.js';
 
 const ProductManager = new productManager();
 const app=express();    
@@ -46,15 +48,15 @@ io.on('connection', async (socket) => {
     socket.on('disconnect', () => {
         console.log('Usuario desconectado (ID:', socket.id, ')');
     })
-
     socket.on('message',data =>{
         messages.push(data)
         io.emit('messageLogs',messages)
     })
-    /*socket.on('message', (message) => {
+    socket.on('message', (message) => {
         console.log(message)
-    })*/
+    })
     socket.emit('productsArray', await ProductManager.getProducts());
+    
     socket.on('newProduct', async (prod) => {
         await ProductManager.createProduct(prod);
         const arrayUpdate = await ProductManager.getProducts();
@@ -64,3 +66,19 @@ io.on('connection', async (socket) => {
         })
     })
 })
+
+
+const mongoURI = 'mongodb+srv://carlosbarrera:7y3h45jDXwxwvAEp@cluster0.l0gzu15.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
+mongoose.connect(mongoURI)
+    .then(() => {
+        console.log('Conectado a MongoDB');
+        // Tu código aquí
+    })
+    .catch(error => {
+        console.error('Error al conectar a MongoDB:', error.message);
+    });
+
+app.use('/api/users',userRouter);
+app.use(express.json());
+

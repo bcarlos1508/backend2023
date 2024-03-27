@@ -10,6 +10,9 @@ import { webRouter } from './routes/web.router.js';
 import {engine} from 'express-handlebars';
 import mongoose from 'mongoose';
 import userRouter from '../src/routes/users.router.js';
+import studentModel from './models/student.js';
+import enviroment from './public/js/index.js';
+
 
 const ProductManager = new productManager();
 const app=express();    
@@ -73,7 +76,7 @@ const mongoURI = 'mongodb+srv://carlosbarrera:7y3h45jDXwxwvAEp@cluster0.l0gzu15.
 mongoose.connect(mongoURI)
     .then(() => {
         console.log('Conectado a MongoDB');
-        // Tu código aquí
+        enviroment();
     })
     .catch(error => {
         console.error('Error al conectar a MongoDB:', error.message);
@@ -81,4 +84,7 @@ mongoose.connect(mongoURI)
 
 app.use('/api/users',userRouter);
 app.use(express.json());
+
+
+
 

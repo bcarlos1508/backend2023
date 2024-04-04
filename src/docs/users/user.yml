@@ -1,0 +1,226 @@
+openapi: 3.0.0
+info:
+  title: Documentación de las APIs
+  version: 1.0.0
+  description: Información de la integración de Users, Products, Cart
+  contact:
+    name: Dotto Martin
+    url: https://www.linkedin.com/in/martin-miguel-dotto-1a3913141/
+servers:
+  - url: http://localhost:8080
+    description: Servidor Local
+paths:
+  /api/users/register:
+    post:
+      summary: Register a New User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                age:
+                  type: number
+                dni:
+                  type: number
+                gender:
+                  type: string
+                birthDate:
+                  type: number
+                password:
+                  type: string
+      responses:
+        "201":
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: User registered successfully
+                  payload:
+                    type: object
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      age:
+                        type: number
+                      dni:
+                        type: number
+                      gender:
+                        type: string
+                      birthDate:
+                        type: number
+                      role:
+                        type: string
+  /api/users/:
+    get:
+      summary: Get All Users
+      responses:
+        "200":
+          description: List of all registered users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        email:
+                          type: string
+                        age:
+                          type: number
+                        dni:
+                          type: number
+                        gender:
+                          type: string
+                        birthDate:
+                          type: number
+                        role:
+                          type: string
+    put:
+      summary: Change User Role
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+          description: The ID of the user whose role needs to be changed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newRole:
+                  type: string
+                  enum: [user, admin, premium]
+      responses:
+        "200":
+          description: User role changed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: User role changed successfully
+                  payload:
+                    type: object
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      age:
+                        type: number
+                      dni:
+                        type: number
+                      gender:
+                        type: string
+                      birthDate:
+                        type: number
+                      role:
+                        type: string
+  /api/auth/recover:
+    post:
+      summary: Recover Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        "200":
+          description: Recovery email sent successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Recovery email sent successfully
+  /api/reset/{token}:
+    get:
+      summary: Reset Password Token
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+          description: The password reset token received in the recovery email
+    put:
+      summary: Update Password
+      parameters:
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+          description: The password reset token received in the recovery email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Password updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Password updated successfully

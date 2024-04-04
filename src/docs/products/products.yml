@@ -1,0 +1,224 @@
+openapi: 3.0.0
+info:
+  title: Documentación de las APIs
+  version: 1.0.0
+  description: Información de la integración de Users, Products, Cart
+  contact:
+    name: Dotto Martin
+    url: https://www.linkedin.com/in/martin-miguel-dotto-1a3913141/
+servers:
+  - url: http://localhost:8080
+    description: Servidor Local
+paths:
+  /api/products/:
+    get:
+      summary: Get All Products
+      responses:
+        "200":
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        title:
+                          type: string
+                        description:
+                          type: string
+                        price:
+                          type: number
+                        owner:
+                          type: string
+    post:
+      summary: Create a New Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The title of the product
+                description:
+                  type: string
+                  description: The description of the product
+                price:
+                  type: number
+                  description: The price of the product
+                owner:
+                  type: string
+                  description: The ID of the product owner (user)
+      responses:
+        "201":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product created successfully
+                  payload:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      price:
+                        type: number
+                      owner:
+                        type: string
+  /api/products/{productId}:
+    get:
+      summary: Get Product by ID
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: string
+          required: true
+          description: The ID of the product to retrieve
+      responses:
+        "200":
+          description: Product retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      price:
+                        type: number
+                      owner:
+                        type: string
+        "404":
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Product not found
+    put:
+      summary: Update Product by ID
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: string
+          required: true
+          description: The ID of the product to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The updated title of the product
+                description:
+                  type: string
+                  description: The updated description of the product
+                price:
+                  type: number
+                  description: The updated price of the product
+      responses:
+        "200":
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product updated successfully
+                  payload:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      price:
+                        type: number
+                      owner:
+                        type: string
+    delete:
+      summary: Delete Product by ID
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: string
+          required: true
+          description: The ID of the product to delete
+      responses:
+        "200":
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Product deleted successfully
+        "404":
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Product not found

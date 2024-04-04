@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-commerce</title>
+</head>
+<body>
+
+{{#if products}}
+    <h1>E-commerce</h1>
+    <ul>
+        {{#each products}}
+            <li>
+                <p>{{this.title}}</p>
+                <p>Descripcion: {{this.description}}</p>
+                <p>Precio unitario: ${{this.price}}</p>
+                <form action="/api/cart/addToCart" method="POST">
+                    <input type="hidden" name="productId" value="{{this._id}}">
+                    <input type="submit" value="Agregar al carrito">
+                </form>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>No hay productos disponibles en este momento.</p>
+{{/if}}
+
+</body>
+</html>

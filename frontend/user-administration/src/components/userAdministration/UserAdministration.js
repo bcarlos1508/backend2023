@@ -16,13 +16,13 @@ const UserAdministration = () => {
 
   return (
     <div>
-      <h1>User Administration</h1>
+      <h1>Administracion de Usuario</h1>
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Nombre</th>
             <th>Email</th>
-            <th>Role</th>
+            <th>Rol</th>
           </tr>
         </thead>
         <tbody>

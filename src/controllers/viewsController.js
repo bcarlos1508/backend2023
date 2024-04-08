@@ -19,11 +19,11 @@ export const registerUser = async (req, res) => {
         });
 
         await newUser.save();
-        Logger.info('User registered successfully');
+        Logger.info('Usuario registrado exitosamente');
         res.redirect('/');
 
     } catch (error) {
-        Logger.error('Error while registering user', error);
+        Logger.error('Error al registrar usuario', error);
         res.status(500).send('Error al registrar el usuario');
     }
 };
@@ -31,10 +31,10 @@ export const registerUser = async (req, res) => {
 export const renderUsersView = async (req, res) => {
     try {
         const users = await userModel.find();
-        Logger.info('All users retrieved successfully');
+        Logger.info('Todos los usuarios recuperados exitosamente');
         res.render('users', { users });
     } catch (error) {
-        Logger.error('Error while getting users', error);
+        Logger.error('Error al obtener los usuarios', error);
         res.status(500).send('Error al obtener los usuarios');
     }
 };
@@ -45,14 +45,14 @@ export const renderCartView = async (req, res) => {
 
         const cart = await ShoppingCart.findOne({ userId }).populate('products');
         if (!cart) {
-            Logger.error('Cart not found');
-            return res.status(404).json({ status: 'error', message: 'Cart not found' });
+            Logger.error('Carrito no encontrado');
+            return res.status(404).json({ status: 'error', message: 'Carrito no encontrado' });
         }
 
-        Logger.info('Cart loaded successfully');
+        Logger.info('Carro cargado exitosamente');
         res.status(200).render('cart', { cartProducts: cart.products });
     } catch (error) {
-        Logger.error('Error at loading the cart', error);
-        res.status(500).send('Error at loading the cart');
+        Logger.error('Error al cargar el carrito', error);
+        res.status(500).send('Error al cargar el carrito');
     }
 };

@@ -6,12 +6,12 @@ const router = Router();
 
 router.get('/mockingproducts', (req, res) => {
   try {
-    logger.debug('Generating mocking products');
+    logger.debug('Generando productos simulados');
     const mockProducts = generateMockProducts();
     res.status(200).json({ status: 'success', payload: mockProducts });
   } catch (error) {
-    logger.error('Error while generating mocking products', error);
-    res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+    logger.error('Error al generar productos simulados', error);
+    res.status(500).json({ status: 'error', message: 'Error interno del Servidor' });
   }
 });
 

@@ -21,7 +21,7 @@ before(async () => {
   });
   
   describe('Cart Operations', () => {
-    it('should add a product to the cart', async () => {
+    it('Debe agregar un producto al carrito', async () => {
       const res = await request.post('/cart/addToCart')
         .set('Authorization', `Bearer ${userToken}`)
         .send({
@@ -30,10 +30,10 @@ before(async () => {
         });
       
       expect(res.status).to.equal(200);
-      expect(res.body).to.have.property('message', 'Product added to cart');
+      expect(res.body).to.have.property('message', 'Producto agregado al carrito');
     });
   
-    it('should successfully purchase the cart items', async () => {
+    it('Debería comprar correctamente los artículos del carrito', async () => {
       const res = await request.post('/cart/purchase')
         .set('Authorization', `Bearer ${userToken}`)
         .send({
@@ -41,7 +41,7 @@ before(async () => {
         });
       
       expect(res.status).to.equal(200);
-      expect(res.body).to.have.property('message', 'Purchase completed successfully');
+      expect(res.body).to.have.property('message', 'Compra completada satisfactoriamente');
     });
   });
   
@@ -52,7 +52,7 @@ before(async () => {
         await Product.deleteMany({ createdBy: 'ID_DEL_USUARIO_DE_PRUEBA' });
     
       } catch (error) {
-        console.error('Error cleaning up test data:', error);
+        console.error('Error al limpiar los datos de la prueba:', error);
       }
         mongoose.disconnect();
     });

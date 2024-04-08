@@ -16,13 +16,13 @@ const initializePassport = async () => {
             const { first_name, last_name, age } = req.body;
 
             if (!first_name || !last_name || !age) {
-                Logger.warning('Incomplete data. Please provide all required fields.');
+                Logger.warning('Datos incompletos. Complete todos los campos obligatorios.');
                 return done(null, false);
             }
 
             const exist = await userModel.findOne({ email });
             if (exist) {
-                Logger.warning('User with this email already exists.');
+                Logger.warning('El usuario con este correo electrónico ya existe.');
                 return done(null, false);
             }
 
@@ -38,11 +38,11 @@ const initializePassport = async () => {
             });
 
             await newUser.save();
-            Logger.info('User registered successfully.');
+            Logger.info('Usuario registrado exitosamente.');
             return done(null, newUser);
 
         } catch (error) {
-            Logger.error('Error during user registration:', error);
+            Logger.error('Error durante el registro de usuario: ', error);
             done(error);
         }
     }));
@@ -54,15 +54,15 @@ const initializePassport = async () => {
         try {
             const user = await userModel.findOne({ email });
             if (!user || !(await validatePassword(user, password))) {
-                Logger.warning('Invalid credentials.');
+                Logger.warning('Credenciales inválidas.');
                 return done(null, false);
             }
     
-            Logger.info('User logged in successfully.');
+            Logger.info('El usuario inició sesión con éxito.');
             return done(null, user);
     
         } catch (error) {
-            Logger.error('Error during user login:', error);
+            Logger.error('Error durante el inicio de sesión del usuario:', error);
             done(error);
         }
     }));
@@ -76,7 +76,7 @@ const initializePassport = async () => {
             const user = await userModel.findById(id);
             done(null, user);
         } catch (error) {
-            Logger.error('Error during user deserialization:', error);
+            Logger.error('Error durante la deserialización del usuario:', error);
             done(error);
         }
     });

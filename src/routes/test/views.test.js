@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../app.js';
 
 describe('GET /views/register', () => {
-  it('should render the register view successfully', async () => {
+  it('Debería representar la vista de registro correctamente', async () => {
     const res = await request(app)
       .get('/views/register');
 
@@ -11,7 +11,7 @@ describe('GET /views/register', () => {
 });
 
 describe('GET /views/', () => {
-  it('should render the users view successfully', async () => {
+  it('Debería mostrar la vista de los usuarios correctamente', async () => {
     const res = await request(app)
       .get('/views/');
 
@@ -20,7 +20,7 @@ describe('GET /views/', () => {
 });
 
 describe('GET /views/cart', () => {
-  it('should render the cart view successfully', async () => {
+  it('Debería representar la vista del carrito correctamente', async () => {
     const validToken = 'VALID_TOKEN';
 
     const res = await request(app)
@@ -30,7 +30,7 @@ describe('GET /views/cart', () => {
     expect(res.statusCode).toEqual(200);
   });
 
-  it('should return 404 if cart not found', async () => {
+  it('Debe devolver 404 si no se encuentra el carrito', async () => {
     const invalidToken = 'INVALID_TOKEN';
 
     const res = await request(app)

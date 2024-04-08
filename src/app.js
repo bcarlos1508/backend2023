@@ -30,10 +30,10 @@ mongoose.set('strictQuery', false);
 //BD
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    Logger.info('Connected to the database');
+    Logger.info('Conectado a BD');
   })
   .catch((error) => {
-    Logger.error('Error connecting to the database:', error);
+    Logger.error('Error conectando a BD:', error);
   });
 
 //Handlebars

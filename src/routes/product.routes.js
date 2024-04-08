@@ -11,22 +11,22 @@ router.delete('/:id', authorize(['admin']), async (req, res) => {
         const product = await Product.findById(req.params.id);
 
         if (!product) {
-            return res.status(404).json({ status: 'error', message: 'Product not found' });
+            return res.status(404).json({ status: 'error', message: 'Producto no encontrado' });
         }
 
         const user = await User.findById(product.owner);
         if (user.role === 'premium') {
             await MailService.sendMail(
                 user.email,
-                'Product Deleted',
-                `Your premium product (${product.title}) has been deleted.`
+                'Producto eliminado',
+                `Su producto Premium (${product.title}) ha sido eliminado.`
             );
         }
 
         await deleteProduct(req, res);
     } catch (error) {
-        console.error('Error deleting product:', error);
-        res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+        console.error('Error al eliminar el producto:', error);
+        res.status(500).json({ status: 'error', message: 'Error interno del Servidor' });
     }
 });
 

@@ -4,18 +4,18 @@ info:
   version: 1.0.0
   description: Información de la integración de Users, Products, Cart
   contact:
-    name: Dotto Martin
-    url: https://www.linkedin.com/in/martin-miguel-dotto-1a3913141/
+    name: Carlos Barrera
+    url: 
 servers:
   - url: http://localhost:8080
     description: Servidor Local
 paths:
   /api/products/:
     get:
-      summary: Get All Products
+      summary: Obtener todos los productos
       responses:
         "200":
-          description: List of products
+          description: Lista de productos
           content:
             application/json:
               schema:
@@ -40,7 +40,7 @@ paths:
                         owner:
                           type: string
     post:
-      summary: Create a New Product
+      summary: Crear un nuevo producto
       requestBody:
         required: true
         content:
@@ -50,19 +50,19 @@ paths:
               properties:
                 title:
                   type: string
-                  description: The title of the product
+                  description: El título del producto.
                 description:
                   type: string
-                  description: The description of the product
+                  description: La descripción del producto.
                 price:
                   type: number
-                  description: The price of the product
+                  description: El precio del producto.
                 owner:
                   type: string
-                  description: The ID of the product owner (user)
+                  description: El ID del propietario del producto (usuario)
       responses:
         "201":
-          description: Product created successfully
+          description: Producto creado exitosamente
           content:
             application/json:
               schema:
@@ -73,7 +73,7 @@ paths:
                     example: success
                   message:
                     type: string
-                    example: Product created successfully
+                    example: Producto creado exitosamente
                   payload:
                     type: object
                     properties:
@@ -89,17 +89,17 @@ paths:
                         type: string
   /api/products/{productId}:
     get:
-      summary: Get Product by ID
+      summary: Obtener producto por ID
       parameters:
         - in: path
           name: productId
           schema:
             type: string
           required: true
-          description: The ID of the product to retrieve
+          description: El ID del producto a recuperar.
       responses:
         "200":
-          description: Product retrieved successfully
+          description: Producto recuperado exitosamente
           content:
             application/json:
               schema:
@@ -122,7 +122,7 @@ paths:
                       owner:
                         type: string
         "404":
-          description: Product not found
+          description: Producto no encontrado
           content:
             application/json:
               schema:
@@ -133,16 +133,16 @@ paths:
                     example: error
                   message:
                     type: string
-                    example: Product not found
+                    example: Producto no encontrado
     put:
-      summary: Update Product by ID
+      summary: Actualizar producto por ID
       parameters:
         - in: path
           name: productId
           schema:
             type: string
           required: true
-          description: The ID of the product to update
+          description: El ID del producto a actualizar.
       requestBody:
         required: true
         content:
@@ -152,16 +152,16 @@ paths:
               properties:
                 title:
                   type: string
-                  description: The updated title of the product
+                  description: El título actualizado del producto.
                 description:
                   type: string
-                  description: The updated description of the product
+                  description: La descripción actualizada del producto.
                 price:
                   type: number
-                  description: The updated price of the product
+                  description: El precio actualizado del producto.
       responses:
         "200":
-          description: Product updated successfully
+          description: Producto actualizado exitosamente
           content:
             application/json:
               schema:
@@ -172,7 +172,7 @@ paths:
                     example: success
                   message:
                     type: string
-                    example: Product updated successfully
+                    example: Producto actualizado exitosamente
                   payload:
                     type: object
                     properties:
@@ -187,17 +187,17 @@ paths:
                       owner:
                         type: string
     delete:
-      summary: Delete Product by ID
+      summary: Eliminar producto por ID
       parameters:
         - in: path
           name: productId
           schema:
             type: string
           required: true
-          description: The ID of the product to delete
+          description: El ID del producto a eliminar.
       responses:
         "200":
-          description: Product deleted successfully
+          description: Producto eliminado exitosamente
           content:
             application/json:
               schema:
@@ -208,9 +208,9 @@ paths:
                     example: success
                   message:
                     type: string
-                    example: Product deleted successfully
+                    example: Producto eliminado exitosamente
         "404":
-          description: Product not found
+          description: Producto no encontrado
           content:
             application/json:
               schema:
@@ -221,4 +221,4 @@ paths:
                     example: error
                   message:
                     type: string
-                    example: Product not found
+                    example: Producto no encontrado

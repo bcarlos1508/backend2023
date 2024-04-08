@@ -4,18 +4,18 @@ info:
   version: 1.0.0
   description: Información de la integración de Users, Products, Cart
   contact:
-    name: Dotto Martin
-    url: https://www.linkedin.com/in/martin-miguel-dotto-1a3913141/
+    name: Carlos Barrera
+    url: 
 servers:
   - url: http://localhost:8080
     description: Servidor Local
 paths:
   /api/cart/:
     get:
-      summary: Get All Products in Cart
+      summary: Obtener todos los productos en el carrito
       responses:
         "200":
-          description: List of products in the user's cart
+          description: Listado de productos en el carrito del usuario
           content:
             application/json:
               schema:
@@ -38,7 +38,7 @@ paths:
                         price:
                           type: number
     post:
-      summary: Add Product to Cart
+      summary: Agregar producto al carrito
       requestBody:
         required: true
         content:
@@ -48,13 +48,13 @@ paths:
               properties:
                 productId:
                   type: string
-                  description: The ID of the product to add to the cart
+                  description: El ID del producto a agregar al carrito.
                 userId:
                   type: string
-                  description: The ID of the user adding the product to the cart
+                  description: El ID del usuario que agrega el producto al carrito.
       responses:
         "200":
-          description: Product added to cart successfully
+          description: Producto agregado al carrito exitosamente
           content:
             application/json:
               schema:
@@ -65,7 +65,7 @@ paths:
                     example: success
                   message:
                     type: string
-                    example: Product added to cart successfully
+                    example: Producto agregado al carrito exitosamente
                   payload:
                     type: object
                     properties:
@@ -88,8 +88,8 @@ paths:
                               type: number
   /api/cart/addToCart:
     post:
-      summary: Deprecated Endpoint
+      summary: Endpoint obsoleto
       deprecated: true
       responses:
         "405":
-          description: This endpoint is deprecated, please use POST /api/cart instead
+          description: Este endpoint está obsoleto; utilice POST /api/cart en su lugar

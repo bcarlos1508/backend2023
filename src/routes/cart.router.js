@@ -7,31 +7,31 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    logger.debug('Fetching all products');
+    logger.debug('Obteniendo todos los productos');
     await cartController.getAllProducts(req, res);
   } catch (error) {
-    logger.error('Error while fetching all products', error);
-    res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+    logger.error('Error al recuperar todos los productos', error);
+    res.status(500).json({ status: 'error', message: 'Error interno del Servidor' });
   }
 });
 
 router.post('/', authorize(['admin']), async (req, res) => {
   try {
-    logger.debug('Creating a new product');
+    logger.debug('Creando un nuevo producto');
     await cartController.createProduct(req, res);
   } catch (error) {
-    logger.error('Error while creating a new product', error);
-    res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+    logger.error('Error al crear un nuevo producto', error);
+    res.status(500).json({ status: 'error', message: 'Error interno del Servidor' });
   }
 });
 
 router.post('/addToCart', authorize(['user']), async (req, res) => {
   try {
-    logger.debug('Adding product to cart');
+    logger.debug('Agregar producto al carrito');
     await cartController.addToCart(req, res);
   } catch (error) {
-    logger.error('Error while adding product to cart', error);
-    res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+    logger.error('Error al agregar producto al carrito', error);
+    res.status(500).json({ status: 'error', message: 'Error interno del Servidor' });
   }
 });
 

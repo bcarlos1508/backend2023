@@ -3,16 +3,16 @@ import Logger from '../utils/logger.js';
 
 export default class Users {
     constructor() {
-        Logger.info('Working with Mongo');
+        Logger.info('Trabajando con Mongo');
     }
 
     getAll = async () => {
         try {
             let users = await userModel.find().lean();
-            Logger.info('All users retrieved successfully');
+            Logger.info('Todos los usuarios recuperados exitosamente');
             return users;
         } catch (error) {
-            Logger.error('Error while getting all users', error);
+            Logger.error('Error al obtener todos los usuarios', error);
             throw error;
         }
     }
@@ -20,10 +20,10 @@ export default class Users {
     saveUser = async (user) => {
         try {
             let result = await userModel.create(user);
-            Logger.info('User saved successfully');
+            Logger.info('Usuario guardado con éxito');
             return result;
         } catch (error) {
-            Logger.error('Error while saving the user', error);
+            Logger.error('Error al guardar el usuario', error);
             throw error;
         }
     }
@@ -31,10 +31,10 @@ export default class Users {
     getById = async (param) => {
         try {
             let result = await userModel.findOne(param).populate('cart').lean();
-            Logger.info('User retrieved by ID successfully');
+            Logger.info('Usuario recuperado por ID exitosamente');
             return result;
         } catch (error) {
-            Logger.error('Error while getting user by ID', error);
+            Logger.error('Error al obtener usuario por ID', error);
             throw error;
         }
     }
@@ -43,10 +43,10 @@ export default class Users {
         try {
             delete user._id;
             let result = await userModel.updateOne({ _id: id }, { $set: user });
-            Logger.info('User updated successfully');
+            Logger.info('Usuario actualizado con éxito');
             return result;
         } catch (error) {
-            Logger.error('Error while updating the user', error);
+            Logger.error('Error al actualizar el usuario', error);
             throw error;
         }
     }

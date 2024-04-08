@@ -10,7 +10,7 @@ const sendRecoveryEmail = async (req, res) => {
     const user = await User.findOne({ email });
     
     if (!user) {
-      return res.status(400).json({ status: 'error', message: 'User not found.' });
+      return res.status(400).json({ status: 'error', message: 'Usuario no encontrado.' });
     }
 
     const token = crypto.randomBytes(20).toString('hex');
@@ -27,18 +27,18 @@ const sendRecoveryEmail = async (req, res) => {
     const resetPasswordLink = `${config.mailing.BASE}/reset-password/${token}`;
     const subject = 'Password Recovery';
     const htmlContent = `
-      <p>Hello,</p>
-      <p>You have requested to reset your password. Click on the following link to reset it:</p>
+      <p>Hola,</p>
+      <p>Ha solicitado reestablecer su contraseña. Haga click en el siguiente enlace para reestablecerla:</p>
       <a href="${resetPasswordLink}">${resetPasswordLink}</a>
-      <p>This link will expire in 1 hour.</p>
+      <p>Este enlace expirará en 1 hora.</p>
     `;
     
     await MailService.sendMail(user.email, subject, htmlContent);
 
-    return res.status(200).json({ status: 'success', message: 'A password recovery link has been sent to your email address.' });
+    return res.status(200).json({ status: 'success', message: 'Se ha enviado un enlace de recuperación de contraseña a su dirección de correo electrónico.' });
   } catch (error) {
-    console.error('Error sending recovery email:', error);
-    return res.status(500).json({ status: 'error', message: 'Error sending the recovery email.' });
+    console.error('Error al enviar el correo electrónico de recuperación:', error);
+    return res.status(500).json({ status: 'error', message: 'Error al enviar el correo electrónico de recuperación.' });
   }
 };
 

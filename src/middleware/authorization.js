@@ -5,13 +5,13 @@ const authorize = (roles) => {
         try {
             const user = req.user;
             if (!user || !user.role || !roles.includes(user.role)) {
-                Logger.warning('Unauthorized access attempt');
-                return res.status(403).json({ status: 'error', message: 'Unauthorized access' });
+                Logger.warning('Intento de acceso no autorizado');
+                return res.status(403).json({ status: 'error', message: 'Acceso no autorizado' });
             }
             next();
         } catch (error) {
-            Logger.error('Error in authorization middleware:', error);
-            return res.status(500).json({ status: 'error', message: 'Internal server error' });
+            Logger.error('Error en el middleware de autorización:', error);
+            return res.status(500).json({ status: 'error', message: 'Error Interno del Servidor' });
         }
     };
 };

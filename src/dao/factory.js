@@ -11,11 +11,11 @@ export default class Factory {
                     this.cartManager = new Carts();
                     break;
                 default:
-                    throw new Error('Invalid manager type');
+                    throw new Error('Tipo de administrador no válido');
             }
-            Logger.info(`Factory initialized with manager type: ${managerType}`);
+            Logger.info(`Inicializado de fábrica con tipo de administrador: ${managerType}`);
         } catch (error) {
-            Logger.error('Error initializing Factory:', error);
+            Logger.error('Error al inicializar la fábrica:', error);
             throw error;
         }
     }

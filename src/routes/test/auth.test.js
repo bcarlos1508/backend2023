@@ -15,7 +15,7 @@ describe('Auth Routes', () => {
     });
 
     describe('/POST recover', () => {
-        it('it should send a recovery email to a user', (done) => {
+        it('Debe enviar un correo electrónico de recuperación a un usuario.', (done) => {
             const user = new User({ email: 'test@example.com', name: 'Test User' });
             user.save((err, user) => {
                 if (err) {
@@ -35,7 +35,7 @@ describe('Auth Routes', () => {
             });
         });
 
-        it('it should return an error for a non-existent user email', (done) => {
+        it('Debería devolver un error para un correo electrónico de usuario inexistente', (done) => {
             server.request(app)
                 .post('/recover')
                 .send({ email: 'nonexistent@example.com' })

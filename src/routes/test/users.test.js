@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../app.js';
 
 describe('GET /users', () => {
-  it('should retrieve all users successfully', async () => {
+  it('Debería recuperar todos los usuarios con éxito', async () => {
     const res = await request(app)
       .get('/users');
 
@@ -12,7 +12,7 @@ describe('GET /users', () => {
 });
 
 describe('POST /users/register', () => {
-  it('should register a new user successfully', async () => {
+  it('Debería registrar un nuevo usuario con éxito.', async () => {
     const userData = {
       first_name: 'Test',
       last_name: 'User',
@@ -33,7 +33,7 @@ describe('POST /users/register', () => {
 });
 
 describe('PUT /users/premium/:uid', () => {
-  it('should change the role of a user to premium', async () => {
+  it('Debería cambiar el rol de un usuario a Premium', async () => {
     const userId = 'EXISTING_USER_ID';
     const validToken = 'VALID_TOKEN';
 
@@ -46,7 +46,7 @@ describe('PUT /users/premium/:uid', () => {
     expect(res.body).toHaveProperty('status', 'success');
   });
 
-  it('should not allow unauthorized users to change user roles', async () => {
+  it('No debe permitir que usuarios no autorizados cambien los roles de usuario', async () => {
     const userId = 'EXISTING_USER_ID';
     const invalidToken = 'INVALID_TOKEN';
 

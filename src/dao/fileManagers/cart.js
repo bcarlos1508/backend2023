@@ -13,14 +13,14 @@ export default class ProductDAO {
         try {
             if (fs.existsSync(filePath)) {
                 const data = await fs.promises.readFile(filePath, 'utf8');
-                Logger.info('Products retrieved successfully');
+                Logger.info('Productos recuperados exitosamente');
                 return JSON.parse(data);
             } else {
-                Logger.info('No existing file found, returning an empty array');
+                Logger.info('No se encontró ningún archivo existente, devolviendo un array vacío');
                 return [];
             }
         } catch (error) {
-            Logger.error('Error while reading the file:', error);
+            Logger.error('Error al leer el archivo:', error);
             throw error;
         }
     }
@@ -37,10 +37,10 @@ export default class ProductDAO {
             products.push(newProduct);
 
             await fs.promises.writeFile(filePath, JSON.stringify(products, null, '\t'));
-            Logger.info('Product saved successfully');
+            Logger.info('Producto guardado exitosamente');
             return newProduct;
         } catch (error) {
-            Logger.error('Error while saving the product:', error);
+            Logger.error('Error al guardar el producto:', error);
             throw error;
         }
     }
@@ -51,10 +51,10 @@ export default class ProductDAO {
             const updatedProducts = products.filter(product => product.id !== productId);
 
             await fs.promises.writeFile(filePath, JSON.stringify(updatedProducts, null, '\t'));
-            Logger.info('Product deleted successfully');
-            return { success: true, message: 'Product deleted successfully' };
+            Logger.info('Producto eliminado exitosamente');
+            return { success: true, message: 'Producto eliminado exitosamente' };
         } catch (error) {
-            Logger.error('Error while deleting the product:', error);
+            Logger.error('Error al eliminar el producto:', error);
             throw error;
         }
     }
@@ -67,14 +67,14 @@ export default class ProductDAO {
             if (index !== -1) {
                 products[index] = { ...products[index], ...updatedData };
                 await fs.promises.writeFile(filePath, JSON.stringify(products, null, '\t'));
-                Logger.info('Product updated successfully');
-                return { success: true, message: 'Product updated successfully' };
+                Logger.info('Producto actualizado exitosamente');
+                return { success: true, message: 'Producto actualizado exitosamente' };
             } else {
-                Logger.warn('Product not found for update');
-                return { success: false, message: 'Product not found' };
+                Logger.warn('Producto no encontrado para actualización');
+                return { success: false, message: 'Producto no encontrado' };
             }
         } catch (error) {
-            Logger.error('Error while updating the product:', error);
+            Logger.error('Error al actualizar el producto:', error);
             throw error;
         }
     }

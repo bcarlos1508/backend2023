@@ -11,7 +11,7 @@ router.get('/loggerTest', (req, res) => {
     Logger.error('Test log - ERROR level');
     Logger.fatal('Test log - FATAL level');
     
-    res.send('Logger test executed. Check your logs.');
+    res.send('Prueba de registrador ejecutada. Revisa tus registros.');
 });
 
 export default router;

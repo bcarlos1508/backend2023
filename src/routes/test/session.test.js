@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../app.js';
 
 describe('POST /session/register', () => {
-  it('should register a user successfully', async () => {
+  it('Debe registrar un usuario con éxito', async () => {
     const res = await request(app)
       .post('/session/register')
       .send({
@@ -19,7 +19,7 @@ describe('POST /session/register', () => {
 });
 
 describe('POST /session/login', () => {
-  it('should log in a user successfully', async () => {
+  it('Debe iniciar sesión como usuario exitosamente', async () => {
     const res = await request(app)
       .post('/session/login')
       .send({
@@ -34,7 +34,7 @@ describe('POST /session/login', () => {
 });
 
 describe('GET /session/current', () => {
-  it('should retrieve the current user', async () => {
+  it('Debería recuperar el usuario actual', async () => {
     const token = 'YOUR_VALID_TOKEN';
 
     const res = await request(app)
@@ -47,7 +47,7 @@ describe('GET /session/current', () => {
 });
 
 describe('POST /session/admin/endpoint', () => {
-  it('should deny access to non-admin users', async () => {
+  it('Debería negar el acceso a usuarios que no sean administradores', async () => {
     const nonAdminToken = 'NON_ADMIN_VALID_TOKEN';
 
     const res = await request(app)
@@ -58,7 +58,7 @@ describe('POST /session/admin/endpoint', () => {
     expect(res.body).toHaveProperty('status', 'error');
   });
 
-  it('should allow access to admin users', async () => {
+  it('Debería permitir el acceso a los usuarios administradores', async () => {
     const adminToken = 'ADMIN_VALID_TOKEN';
 
     const res = await request(app)

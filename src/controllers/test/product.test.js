@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../app.js';
 
 describe('GET /products', () => {
-  it('should return all products successfully', async () => {
+  it('Deberia devolver todos los productos correctamente', async () => {
     const res = await request(app)
       .get('/products');
 
@@ -11,10 +11,10 @@ describe('GET /products', () => {
 });
 
 describe('POST /products', () => {
-  it('should create a new product successfully', async () => {
+  it('Debería crear un nuevo producto con éxito', async () => {
     const newProductData = {
-      title: 'New Product',
-      description: 'Description of the new product',
+      title: 'Nuevo Producto',
+      description: 'Descripcion del nuevo producto',
       price: 100,
     };
 
@@ -27,11 +27,11 @@ describe('POST /products', () => {
 });
 
 describe('PUT /products/:id', () => {
-  it('should update an existing product successfully', async () => {
+  it('Debe actualizar un producto existente con éxito', async () => {
     const validProductId = 'VALID_PRODUCT_ID';
     const updatedProductData = {
-      title: 'Updated Product Title',
-      description: 'Updated product description',
+      title: 'Título del producto actualizado',
+      description: 'Descripción del producto actualizada',
       price: 150,
     };
 
@@ -44,7 +44,7 @@ describe('PUT /products/:id', () => {
 });
 
 describe('DELETE /products/:id', () => {
-  it('should delete an existing product successfully', async () => {
+  it('Debería eliminar un producto existente con éxito', async () => {
     const validProductId = 'VALID_PRODUCT_ID';
 
     const res = await request(app)

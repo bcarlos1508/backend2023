@@ -9,13 +9,13 @@ export const addToCart = async (req, res) => {
 
         const product = await Product.findById(productId);
         if (!product) {
-            Logger.error(`Product not found with ID: ${productId}`);
+            Logger.error(`Producto no encontrado con el ID: ${productId}`);
             errorHandler(errorDictionary.PRODUCT_NOT_FOUND, res);
             return;
         }
 
         if (product.owner === req.user.email) {
-            Logger.error('Premium user cannot add their own product to the cart');
+            Logger.error('El usuario Premium no puede agregar su propio producto al carrito.');
             errorHandler(errorDictionary.UNAUTHORIZED_ACCESS, res);
             return;
         }
@@ -32,7 +32,7 @@ export const addToCart = async (req, res) => {
         const existingProduct = cart.products.find((cartProduct) => cartProduct._id.equals(productId));
 
         if (existingProduct) {
-            Logger.error('Product is already in the cart');
+            Logger.error('El producto ya existe en el carrito');
             errorHandler(errorDictionary.PRODUCT_ALREADY_IN_CART, res);
             return;
         }
@@ -40,10 +40,10 @@ export const addToCart = async (req, res) => {
         cart.products.push(product);
         await cart.save();
 
-        Logger.info(`Product added to cart: ${product.title}`);
-        res.status(200).json({ status: 'success', message: 'Product added to cart', payload: cart });
+        Logger.info(`Producto agregado en el carrito: ${product.title}`);
+        res.status(200).json({ status: 'success', message: 'Producto agregado en el carrito', payload: cart });
     } catch (error) {
-        Logger.error(`Error adding product to cart: ${error.message}`);
+        Logger.error(`Error añadiento el producto al carrito: ${error.message}`);
         errorHandler(errorDictionary.INTERNAL_SERVER_ERROR, res);
         return;
     }
@@ -55,7 +55,7 @@ export const purchaseCart = async (req, res) => {
         const cart = await ShoppingCart.findById(cartId).populate('products');
 
         if (!cart) {
-            Logger.error(`Cart not found with ID: ${cartId}`);
+            Logger.error(`Carrito no encontrado con ID: ${cartId}`);
             errorHandler(errorDictionary.CART_NOT_FOUND, res);
             return;
         }
@@ -66,7 +66,7 @@ export const purchaseCart = async (req, res) => {
             const product = await Product.findById(cartProduct._id);
 
             if (!product) {
-                Logger.error(`Product not found with ID: ${cartProduct._id}`);
+                Logger.error(`Producto no encontrado con ID: ${cartProduct._id}`);
                 errorHandler(errorDictionary.PRODUCT_NOT_FOUND, res);
                 return;
             }
@@ -81,7 +81,7 @@ export const purchaseCart = async (req, res) => {
                     price: product.price,
                 });
             } else {
-                Logger.error(`Insufficient stock for product: ${product.title}`);
+                Logger.error(`Stock insuficiente para el producto: ${product.title}`);
                 errorHandler(errorDictionary.INSUFFICIENT_STOCK, res);
                 return;
             }
@@ -90,7 +90,7 @@ export const purchaseCart = async (req, res) => {
         const totalAmount = calculateTotalAmount(ticketProducts);
 
         if (cart.products.some((cartProduct) => cartProduct.owner !== req.user.email)) {
-            Logger.error('Premium user cannot purchase products that do not belong to them');
+            Logger.error('El usuario Premium no puede adquirir productos que no le pertenecen');
             errorHandler(errorDictionary.UNAUTHORIZED_ACCESS, res);
             return;
         }
@@ -105,14 +105,14 @@ export const purchaseCart = async (req, res) => {
 
         await ShoppingCart.findByIdAndUpdate(cartId, { $pull: { products: { $in: cart.products } } });
 
-        Logger.info(`Purchase completed successfully: ${ticketResult}`);
+        Logger.info(`Compra completada exitosamente: ${ticketResult}`);
         return res.status(200).json({
             status: 'success',
-            message: 'Purchase completed successfully',
+            message: 'Compra completada exitosamente',
             ticket: ticketResult,
         });
     } catch (error) {
-        Logger.error(`Error processing purchase: ${error.message}`);
+        Logger.error(`Error al procesar la compra: ${error.message}`);
         errorHandler(errorDictionary.INTERNAL_SERVER_ERROR, res);
         return;
     }

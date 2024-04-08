@@ -6,17 +6,17 @@ const generateMockProducts = () => {
         for (let i = 1; i <= 100; i++) {
             const product = {
                 _id: `mock_product_${i}`,
-                title: `Mock Product ${i}`,
-                description: `Description for Mock Product ${i}`,
+                title: `Producto Simulado ${i}`,
+                description: `Descripcion del Producto Simulado ${i}`,
                 price: Math.random() * 100,
                 stock: Math.floor(Math.random() * 50) + 1,
             };
             mockProducts.push(product);
         }
-        Logger.debug('Generated mock products successfully');
+        Logger.debug('Productos simulados generados con éxito');
         return mockProducts;
     } catch (error) {
-        Logger.error(`Error generating mock products: ${error.message}`);
+        Logger.error(`Error al generar productos simulados: ${error.message}`);
         return [];
     }
 };

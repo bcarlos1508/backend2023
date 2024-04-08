@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function ShoppingCart({ cartItems, removeFromCart }) {
   return (
     <div>
-      <h1>Shopping Cart</h1>
+      <h1>Carrito de compra</h1>
       <ul>
         {cartItems.map(item => (
           <li key={item.id}>
@@ -13,7 +13,7 @@ function ShoppingCart({ cartItems, removeFromCart }) {
           </li>
         ))}
       </ul>
-      <Link to="/checkout">Proceed to Checkout</Link>
+      <Link to="/checkout">Pasar por caja</Link>
     </div>
   );
 }

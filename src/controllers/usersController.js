@@ -10,7 +10,7 @@ export const getAllUsers = async (req, res) => {
         const users = await userModel.find({}, 'first_name last_name email role');
         res.status(200).json({ status: 'success', payload: users });
     } catch (error) {
-        Logger.error(`Error getting all users: ${error.message}`);
+        Logger.error(`Error al obtener todos los usuarios: ${error.message}`);
         errorHandler(errorDictionary.INTERNAL_SERVER_ERROR, res);
     }
 };
@@ -20,7 +20,7 @@ export const registerUser = async (req, res) => {
         const { first_name, last_name, birthDate, gender, dni, email, password } = req.body;
 
         if (!first_name || !last_name || !birthDate || !gender || !dni || !email || !password) {
-            Logger.error('Incomplete data');
+            Logger.error('Datos incompletos');
             errorHandler(errorDictionary.INCOMPLETE_DATA, res);
             return;
         }
@@ -40,14 +40,14 @@ export const registerUser = async (req, res) => {
         await newUser.save();
         await MailService.sendMail(
             email,
-            "Welcome to our platform",
-            `<b>Hello ${first_name},</b><br><p>Thank you for registering. Welcome aboard!</p>`
+            "Bienvenidos a nuestra plataforma",
+            `<b>Hola ${first_name},</b><br><p>Gracias por registrarte. Bienvenido a bordo!</p>`
         );
-        Logger.info('User registered successfully');
+        Logger.info('Usuario registrado exitosamente');
         res.status(201).json({ status: 'success', payload: newUser });
 
     } catch (error) {
-        Logger.error(`Error registering user: ${error.message}`);
+        Logger.error(`Error al registrar usuario: ${error.message}`);
         errorHandler(errorDictionary.INTERNAL_SERVER_ERROR, res);
     }
 };
@@ -58,7 +58,7 @@ export const changeUserRole = async (req, res) => {
         const { newRole } = req.body;
 
         if (!uid || !newRole || !['user', 'premium'].includes(newRole)) {
-            Logger.error('Invalid parameters for changing user role');
+            Logger.error('Parámetros no válidos para cambiar el rol de usuario');
             errorHandler(errorDictionary.INVALID_PARAMETERS, res);
             return;
         }
@@ -66,7 +66,7 @@ export const changeUserRole = async (req, res) => {
         const user = await userModel.findById(uid);
 
         if (!user) {
-            Logger.error(`User not found with ID: ${uid}`);
+            Logger.error(`Usuario no encontrado con ID: ${uid}`);
             errorHandler(errorDictionary.USER_NOT_FOUND, res);
             return;
         }
@@ -78,16 +78,16 @@ export const changeUserRole = async (req, res) => {
             const hasAllRequiredDocuments = requiredDocuments.every(requiredDoc => uploadedDocumentNames.includes(requiredDoc));
 
             if (!hasAllRequiredDocuments) {
-                Logger.error('User has not uploaded all required documents for premium status');
+                Logger.error('El usuario no ha subido todos los documentos requeridos para el estado Premium');
                 return res.status(400).json({
                     status: 'error',
-                    message: 'User has not uploaded all required documents for premium status.'
+                    message: 'El usuario no ha subido todos los documentos requeridos para el estado Premium.'
                 });
             }
         }
 
         if (req.user.role !== 'admin' && req.user._id.toString() !== uid) {
-            Logger.error('Unauthorized to change user role');
+            Logger.error('No autorizado para cambiar el rol de usuario');
             errorHandler(errorDictionary.UNAUTHORIZED_ACCESS, res);
             return;
         }
@@ -95,10 +95,10 @@ export const changeUserRole = async (req, res) => {
         user.role = newRole;
         await user.save();
 
-        Logger.info(`User role changed successfully: ${user.email}`);
-        res.status(200).json({ status: 'success', message: 'User role changed successfully', payload: user });
+        Logger.info(`El rol del usuario cambió exitosamente: ${user.email}`);
+        res.status(200).json({ status: 'success', message: 'El rol del usuario cambió exitosamente:', payload: user });
     } catch (error) {
-        Logger.error(`Error changing user role: ${error.message}`);
+        Logger.error(`Error al cambiar el rol de usuario: ${error.message}`);
         errorHandler(errorDictionary.INTERNAL_SERVER_ERROR, res);
     }
 };
@@ -109,7 +109,7 @@ export const addDocumentToUser = async (req, res) => {
         const files = req.files;
 
         if (!files || files.length === 0) {
-            Logger.error('No documents uploaded');
+            Logger.error('No se han subido documentos');
             errorHandler(errorDictionary.INVALID_PARAMETERS, res);
             return;
         }
@@ -126,12 +126,12 @@ export const addDocumentToUser = async (req, res) => {
             $push: { documents: { $each: documents } },
             $set: { last_connection: new Date() },
         });
-        Logger.info("Documents uploaded successfully");
+        Logger.info("Documentos cargados exitosamente");
         res
             .status(200)
-            .json({ status: "success", message: "Documents uploaded successfully." });
+            .json({ status: "success", message: "Documentos cargados exitosamente." });
     } catch (error) {
-        Logger.error(`Error uploading documents: ${error.message}`);
+        Logger.error(`Error al cargar documentos: ${error.message}`);
         errorHandler(errorDictionary.INTERNAL_SERVER_ERROR, res);
     }
  };
@@ -141,7 +141,7 @@ export const addDocumentToUser = async (req, res) => {
         const users = await userModel.find({}, 'first_name last_name email role -_id');
         res.status(200).json({ status: 'success', payload: users });
     } catch (error) {
-        Logger.error(`Error getting main user data: ${error.message}`);
+        Logger.error(`Error al obtener los datos del usuario principal: ${error.message}`);
         errorHandler(errorDictionary.INTERNAL_SERVER_ERROR, res);
     }
 };
@@ -158,18 +158,18 @@ export const deleteInactiveUsers = async (req, res) => {
             inactiveUserEmails.forEach(email => {
                 MailService.sendMail(
                     email,
-                    "Account Deletion Notice",
-                    "Your account has been deleted due to inactivity."
+                    "Aviso de eliminación de cuenta",
+                    "Su cuenta ha sido eliminada por inactividad."
                 );
             });
 
-            Logger.info(`Deleted ${inactiveUsers.length} inactive users.`);
-            res.status(200).json({ status: 'success', message: `Deleted ${inactiveUsers.length} inactive users.` });
+            Logger.info(`Eliminado ${inactiveUsers.length} usuarios inactivos.`);
+            res.status(200).json({ status: 'success', message: `Eliminado ${inactiveUsers.length} usuarios inactivos.` });
         } else {
-            res.status(200).json({ status: 'success', message: "No inactive users found to delete." });
+            res.status(200).json({ status: 'success', message: "No se encontraron usuarios inactivos para eliminar." });
         }
     } catch (error) {
-        Logger.error(`Error deleting inactive users: ${error.message}`);
+        Logger.error(`Error al eliminar usuarios inactivos: ${error.message}`);
         errorHandler(errorDictionary.INTERNAL_SERVER_ERROR, res);
     }
 };

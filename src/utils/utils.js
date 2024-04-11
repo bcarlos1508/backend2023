@@ -1,5 +1,5 @@
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+import { dirname, resolve } from "path";
 import bcrypt from 'bcrypt';
 
 export const createHash = async (password) => {

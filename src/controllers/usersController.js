@@ -7,7 +7,8 @@ import moment from 'moment';
 
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await userModel.find({}, 'first_name last_name email role');
+    const users = await userModel.find({}, 'first_name last_name email role').lean();
+        console.log(users);
         res.status(200).json({ status: 'success', payload: users });
     } catch (error) {
         Logger.error(`Error al obtener todos los usuarios: ${error.message}`);

@@ -1,10 +1,12 @@
 
 import express from 'express';
-import { deleteProduct } from '../controllers/productController.js';
+import productController from '../controllers/productController.js';
 import authorize from '../middleware/authorization.js';
 import MailService from '../services/mailService.js';
 
 const router = express.Router();
+
+router.get('/', productController.getAllProducts);
 
 router.delete('/:id', authorize(['admin']), async (req, res) => {
     try {

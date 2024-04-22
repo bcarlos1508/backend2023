@@ -14,6 +14,7 @@ import sessionRouter from './routes/session.router.js';
 import mockingRouter from './routes/mockingRoutes.js';
 import orderRouter from './routes/order.routes.js';
 import productRouter from './routes/product.routes.js';
+import ticketRouter from './routes/ticket.router.js';
 import swaggerUiExpress from 'swagger-ui-express';
 import swaggerSpec from './config/swaggerconfig.js';
 import __dirname from './utils/utils.js';
@@ -58,6 +59,7 @@ app.use('/api/cart', cartRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/sessions', sessionRouter);
 app.use('/api/products', productRouter);
+app.use('/api/tickets', ticketRouter);
 app.use('/', mockingRouter);
 app.use('/api/orders', orderRouter);
 

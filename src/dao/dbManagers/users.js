@@ -8,8 +8,8 @@ export default class Users {
 
     getAll = async () => {
         try {
-            let users = await userModel.find().lean();
-            Logger.info('Todos los usuarios recuperados exitosamente');
+            let users = await userModel.find();
+            Logger.info('Todos los usuarios recuperados exitosamentepp');
             return users;
         } catch (error) {
             Logger.error('Error al obtener todos los usuarios', error);

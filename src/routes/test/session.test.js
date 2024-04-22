@@ -18,7 +18,7 @@ describe('POST /session/register', () => {
   });
 });
 
-describe('POST /session/login', () => {
+describe('POST /sessions/login', () => {
   it('Debe iniciar sesión como usuario exitosamente', async () => {
     const res = await request(app)
       .post('/session/login')

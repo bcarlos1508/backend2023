@@ -1,7 +1,7 @@
 <div>
-    Usuarios
+    <h1>Usuarios</h1>
 </div>
 {{#each users}}
-    <p>{{users.first_name}}</p>
-    <p>{{users.email}}</p>
+    <p>{{this.first_name}}</p>
+    <p>{{this.email}}</p>
 {{/each}}

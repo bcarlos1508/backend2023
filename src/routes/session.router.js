@@ -7,5 +7,6 @@ router.post('/register', sessionController.registerUser);
 router.post('/login', sessionController.loginUser);
 router.get('/current', sessionController.getCurrentUser);
 router.post('/admin/endpoint', sessionController.isAdmin, sessionController.adminEndpoint);
+router.delete('/current', sessionController.logoutUser);
 
 export default router;

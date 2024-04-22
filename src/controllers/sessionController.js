@@ -85,3 +85,13 @@ export const isAdmin = (req, res, next) => {
     }
 };
 
+export const logoutUser = (req, res) => {
+    try {
+        req.logout();
+        res.status(200).json({ status: 'success', message: 'Logout exitoso' });
+    } catch (error) {
+        console.error('Error during logout:', error);
+        res.status(500).json({ status: 'error', message: 'Error interno del servidor' });
+    }
+};
+

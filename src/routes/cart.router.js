@@ -15,6 +15,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.put('/current', authorize(['user']), async (req, res) => {
+  try {
+    logger.debug('Modificando el carrito del usuario');
+    await cartController.modifyCurrentCart(req, res);
+  } catch (error) {
+    logger.error('Error al modificar el carrito del usuario', error);
+    res.status(500).json({ status: 'error', message: 'Error interno del Servidor' });
+  }
+});
+
 router.post('/', authorize(['admin']), async (req, res) => {
   try {
     logger.debug('Creando un nuevo producto');

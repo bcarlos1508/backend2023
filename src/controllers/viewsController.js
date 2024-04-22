@@ -32,7 +32,7 @@ export const renderUsersView = async (req, res) => {
     try {
         const users = await userModel.find();
         Logger.info('Todos los usuarios recuperados exitosamente');
-        res.render('users', { users });
+        res.render('users', {users});
     } catch (error) {
         Logger.error('Error al obtener los usuarios', error);
         res.status(500).send('Error al obtener los usuarios');
